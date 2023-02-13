@@ -1,0 +1,26 @@
+{
+    "accounts": [
+        {
+            "id": 1676310328601,
+            "username": "admin",
+            "password": "admin123",
+            "role": "Admin"
+        },
+        {
+            "id": 1676310352782,
+            "username": "member",
+            "password": "member123",
+            "role": "Member"
+        }
+    ],
+    "users": [
+        {
+            "userId": 1676310328601,
+            "username": "admin"
+        },
+        {
+            "userId": 1676310352782,
+            "username": "member"
+        }
+    ]
+}
