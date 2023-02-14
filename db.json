@@ -15,11 +15,11 @@
     ],
     "users": [
         {
-            "userId": 1676310328601,
+            "id": 1676310328601,
             "username": "admin"
         },
         {
-            "userId": 1676310352782,
+            "id": 1676310352782,
             "username": "member"
         }
     ]

@@ -19,7 +19,6 @@ const FormSignUp = () => {
     const [loadingSignUp, setLoadingSignUp] = useState(false);
     const [errorUsername, setErrorUsername] = useState(false);
     const [errorPassword, setErrorPassword] = useState(false);
-    const [errorSignUp, setErrorSignUp] = useState(false);
     const [trySignUp, setTrySignUp] = useState(false);
 
     useEffect(() => {
@@ -82,6 +81,9 @@ const FormSignUp = () => {
                 resetFormSignUp();
             } else {
                 if (checkUserByUsernameLoading) {
+                    // set setErrorUsername to false when loading process
+                    setErrorUsername(false);
+
                     // show loading
                     setLoadingSignUp(true);
                 } else {
@@ -97,7 +99,7 @@ const FormSignUp = () => {
         if (trySignUp === true) {
             checkUsernameSignUp();
         }
-    }, [trySignUp, checkUserByUsernameLoading, checkUserByUsernameResult, dispatch, id, username, password, confirmPassword]);
+    }, [checkUserByUsernameResult, checkUserByUsernameLoading]);
 
     useEffect(() => {
         // create new user
@@ -114,7 +116,7 @@ const FormSignUp = () => {
             // navigate to sign in page after success sign up / create account
             navigate("/sign-in-page");
         }
-    }, [createNewAccountResult, trySignUp, dispatch, createNewUserResult, navigate]);
+    }, [createNewAccountResult]);
 
     return (
         <>
