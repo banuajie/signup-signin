@@ -5,7 +5,7 @@ import FormSignIn from "../../components/FormSignIn";
 
 const SignInPage = () => {
     return (
-        <div>
+        <div className="bg-secondary bg-opacity-10">
             <Header />
             <FormSignIn />
             <Footer />

@@ -8,7 +8,7 @@ import { useNavigate } from "react-router";
 const FormSignUp = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { checkUserByUsernameLoading, checkUserByUsernameResult, createNewAccountResult, createNewUserResult } = useSelector((state) => state.SignUpReducer);
+    const { checkUserByUsernameLoading, checkUserByUsernameResult, createNewAccountResult } = useSelector((state) => state.SignUpReducer);
 
     const [id, setId] = useState("");
     const [username, setUsername] = useState("");
@@ -20,11 +20,6 @@ const FormSignUp = () => {
     const [errorUsername, setErrorUsername] = useState(false);
     const [errorPassword, setErrorPassword] = useState(false);
     const [trySignUp, setTrySignUp] = useState(false);
-
-    useEffect(() => {
-        // get all data users
-        dispatch(getAllUsers());
-    }, [dispatch]);
 
     useEffect(() => {
         // check password and confirm password
