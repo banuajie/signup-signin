@@ -15,10 +15,10 @@ const ListAccount = () => {
         <>
             <section id="list-account" className="pt-3 pb-3">
                 {/* title table list account */}
-                <div className="container pt-3 pb-3">
+                <div className="container">
                     <div className="row">
                         <div className="col">
-                            <p className="fs-4 my-auto">Add Account</p>
+                            <p className="fs-4 my-auto">List Account</p>
                         </div>
                     </div>
                 </div>
