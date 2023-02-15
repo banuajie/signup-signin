@@ -4,12 +4,19 @@ import { getAllAccount } from "../../actions/actionsAccount";
 
 const ListAccount = () => {
     const dispatch = useDispatch();
-    const { getAllAccountLoading, getAllAccountResult, getAllAccountError } = useSelector((state) => state.AccountReducer);
+    const { getAllAccountLoading, getAllAccountResult, getAllAccountError, addNewUserResult } = useSelector((state) => state.AccountReducer);
 
     useEffect(() => {
         // get all data account when first time open landing page
         dispatch(getAllAccount());
     }, [dispatch]);
+
+    useEffect(() => {
+        if (addNewUserResult) {
+            // refresh table list account after success add new user
+            dispatch(getAllAccount());
+        }
+    }, [addNewUserResult]);
 
     return (
         <>

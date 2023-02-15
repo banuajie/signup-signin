@@ -1,36 +1,46 @@
 {
-    "accounts": [
-        {
-            "id": 1676310328601,
-            "username": "admin",
-            "password": "admin123",
-            "role": "Admin"
-        },
-        {
-            "id": 1676310352782,
-            "username": "member",
-            "password": "member123",
-            "role": "Member"
-        },
-        {
-            "id": 1676382997215,
-            "username": "banuajie",
-            "password": "banuajie123",
-            "role": "Member"
-        }
-    ],
-    "users": [
-        {
-            "id": 1676310328601,
-            "username": "admin"
-        },
-        {
-            "id": 1676310352782,
-            "username": "member"
-        },
-        {
-            "id": 1676382997215,
-            "username": "banuajie"
-        }
-    ]
+  "accounts": [
+    {
+      "id": 1676310328601,
+      "username": "admin",
+      "password": "admin123",
+      "role": "Admin"
+    },
+    {
+      "id": 1676310352782,
+      "username": "member",
+      "password": "member123",
+      "role": "Member"
+    },
+    {
+      "id": 1676482853635,
+      "username": "banuajie",
+      "password": "banuajie123",
+      "role": "Member"
+    },
+    {
+      "id": 1676482936587,
+      "username": "nugraha",
+      "password": "nugraha123",
+      "role": "Member"
+    }
+  ],
+  "users": [
+    {
+      "id": 1676310328601,
+      "username": "admin"
+    },
+    {
+      "id": 1676310352782,
+      "username": "member"
+    },
+    {
+      "id": 1676482853635,
+      "username": "banuajie"
+    },
+    {
+      "id": 1676482936587,
+      "username": "nugraha"
+    }
+  ]
 }
