@@ -11,6 +11,7 @@ const AddAccount = () => {
     const [password, setPassword] = useState("");
     const [role, setRole] = useState("");
     const [errorUsername, setErrorUsername] = useState(false);
+    const [tryCreateAccount, setTryCreateAccount] = useState(false);
 
     // generated id account
     const generatedId = () => {
@@ -38,14 +39,24 @@ const AddAccount = () => {
         // set error username to false
         setErrorUsername(false);
 
-        // add new account
-        dispatch(addNewAccount({ id: generatedId(), username: username, password: password, role: role }));
+        // set tryCreateAccount to true
+        setTryCreateAccount(true);
     };
 
     useEffect(() => {
-        if (addNewAccountResult) {
+        if (tryCreateAccount === true) {
+            // add new account
+            dispatch(addNewAccount({ id: generatedId(), username: username, password: password, role: role }));
+        }
+    }, [tryCreateAccount]);
+
+    useEffect(() => {
+        if (addNewAccountResult && tryCreateAccount) {
             // add new user when success add new account
             dispatch(addNewUser({ id: addNewAccountResult.id, username: addNewAccountResult.username }));
+
+            // set tryCreateAccount to false
+            setTryCreateAccount(false);
         }
     }, [addNewAccountResult]);
 
