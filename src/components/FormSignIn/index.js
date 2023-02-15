@@ -43,8 +43,13 @@ const FormSignIn = () => {
             // set loading to false when sign in success
             setLoadingSignIn(false);
 
-            // navigate to homepage when sign in success
-            console.log("navigate to homepage");
+            if (signInResult[0].role === "Admin") {
+                // navigate to landing admin
+                navigate("/landing-admin-page");
+            } else {
+                // navigate to landing member
+                console.log("navigate to landing member");
+            }
         } else {
             // set loading to false when sign in error
             setLoadingSignIn(false);
