@@ -50,8 +50,11 @@ const FormSignIn = () => {
                 // navigate to landing admin
                 navigate("/landing-admin-page");
             } else {
+                // save user login data to local storage
+                window.localStorage.setItem("AccountLogin", JSON.stringify(signInResult[0]));
+
                 // navigate to landing member
-                console.log("navigate to landing member");
+                navigate("/landing-member-page");
             }
         } else {
             // set loading to false when sign in error

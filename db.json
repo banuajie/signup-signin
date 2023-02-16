@@ -16,6 +16,12 @@
       "id": 1676560240133,
       "username": "banuajie",
       "password": "banuajie123",
+      "role": "Admin"
+    },
+    {
+      "id": 1676562917193,
+      "username": "nugraha",
+      "password": "nugraha123",
       "role": "Member"
     }
   ],
@@ -31,6 +37,10 @@
     {
       "id": 1676560240133,
       "username": "banuajie"
+    },
+    {
+      "id": 1676562917193,
+      "username": "nugraha"
     }
   ]
 }
