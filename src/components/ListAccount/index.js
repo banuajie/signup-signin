@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllAccount } from "../../actions/actionsAccount";
+import { deleteAccount, deleteUser, getAllAccount } from "../../actions/actionsAccount";
 
 const ListAccount = () => {
     const dispatch = useDispatch();
-    const { getAllAccountLoading, getAllAccountResult, getAllAccountError, addNewUserResult } = useSelector((state) => state.AccountReducer);
+    const { getAllAccountLoading, getAllAccountResult, getAllAccountError, addNewUserResult, deleteAccountResult, deleteUserResult } = useSelector((state) => state.AccountReducer);
 
     useEffect(() => {
         // get all data account when first time open landing page
@@ -17,6 +17,13 @@ const ListAccount = () => {
             dispatch(getAllAccount());
         }
     }, [addNewUserResult]);
+
+    useEffect(() => {
+        if (deleteUserResult) {
+            // refresh table list account after success delete user
+            dispatch(getAllAccount());
+        }
+    }, [deleteUserResult]);
 
     return (
         <>
@@ -63,7 +70,14 @@ const ListAccount = () => {
                                                                 </button>
                                                             </div>
                                                             <div className="col">
-                                                                <button className="btn btn-danger btn-sm w-100" disabled={item.username === "admin" || item.username === "member"}>
+                                                                <button
+                                                                    className="btn btn-danger btn-sm w-100"
+                                                                    disabled={item.username === "admin" || item.username === "member"}
+                                                                    onClick={() => {
+                                                                        dispatch(deleteAccount(item.id));
+                                                                        dispatch(deleteUser(item.id));
+                                                                    }}
+                                                                >
                                                                     Delete
                                                                 </button>
                                                             </div>

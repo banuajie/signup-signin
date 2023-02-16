@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addNewAccount, addNewUser } from "../../actions/actionsAccount";
+import { addNewAccount, addNewUser, getAllAccount } from "../../actions/actionsAccount";
 
 const AddAccount = () => {
     const dispatch = useDispatch();
-    const { addNewAccountResult, addNewUserResult, getAllAccountResult } = useSelector((state) => state.AccountReducer);
+    const { addNewAccountResult, addNewUserResult, getAllAccountResult, deleteAccountResult, deleteUserResult } = useSelector((state) => state.AccountReducer);
 
     const [id, setId] = useState("");
     const [username, setUsername] = useState("");
@@ -66,6 +66,13 @@ const AddAccount = () => {
             resetForm();
         }
     }, [addNewUserResult]);
+
+    useEffect(() => {
+        if (deleteUserResult) {
+            // reset form after success delete user
+            resetForm();
+        }
+    }, [deleteUserResult]);
 
     return (
         <>

@@ -1,4 +1,4 @@
-import { ADD_NEW_ACCOUNT, ADD_NEW_USER, GET_ALL_ACCOUNT } from "../../actions/actionsAccount";
+import { ADD_NEW_ACCOUNT, ADD_NEW_USER, DELETE_ACCOUNT, DELETE_USER, GET_ALL_ACCOUNT } from "../../actions/actionsAccount";
 
 const initialState = {
     getAllAccountLoading: false,
@@ -12,6 +12,14 @@ const initialState = {
     addNewUserLoading: false,
     addNewUserResult: false,
     addNewUserError: false,
+
+    deleteAccountLoading: false,
+    deleteAccountResult: false,
+    deleteAccountError: false,
+
+    deleteUserLoading: false,
+    deleteUserResult: false,
+    deleteUserError: false,
 };
 
 const AccountReducer = (state = initialState, action) => {
@@ -38,6 +46,21 @@ const AccountReducer = (state = initialState, action) => {
                 addNewUserLoading: action.payload.loading,
                 addNewUserResult: action.payload.data,
                 addNewUserError: action.payload.errorMessage,
+            };
+
+        case DELETE_ACCOUNT:
+            return {
+                deleteAccountLoading: action.payload.loading,
+                deleteAccountResult: action.payload.data,
+                deleteAccountError: action.payload.errorMessage,
+            };
+
+        case DELETE_USER:
+            return {
+                ...state,
+                deleteUserLoading: action.payload.loading,
+                deleteUserResult: action.payload.data,
+                deleteUserError: action.payload.errorMessage,
             };
 
         default:

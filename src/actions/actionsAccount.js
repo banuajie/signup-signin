@@ -3,6 +3,8 @@ import axios from "axios";
 export const GET_ALL_ACCOUNT = "GET_ALL_ACCOUNT";
 export const ADD_NEW_ACCOUNT = "ADD_NEW_ACCOUNT";
 export const ADD_NEW_USER = "ADD_NEW_USER";
+export const DELETE_ACCOUNT = "DELETE_ACCOUNT";
+export const DELETE_USER = "DELETE_USER";
 
 export const getAllAccount = () => {
     return (dispatch) => {
@@ -129,6 +131,92 @@ export const addNewUser = (data) => {
                         loading: false,
                         data: false,
                         messageError: error.message,
+                    },
+                });
+            });
+    };
+};
+
+export const deleteAccount = (id) => {
+    return (dispatch) => {
+        // loading
+        dispatch({
+            type: DELETE_ACCOUNT,
+            payload: {
+                loading: true,
+                data: false,
+                errorMessage: false,
+            },
+        });
+
+        // delete data
+        axios({
+            method: "DELETE",
+            url: "http://localhost:5000/accounts/" + id,
+            timeout: 5000,
+        })
+            .then((res) => {
+                // when success delete data
+                dispatch({
+                    type: DELETE_ACCOUNT,
+                    payload: {
+                        loading: false,
+                        data: res.data,
+                        errorMessage: false,
+                    },
+                });
+            })
+            .catch((error) => {
+                // when success delete data
+                dispatch({
+                    type: DELETE_ACCOUNT,
+                    payload: {
+                        loading: false,
+                        data: false,
+                        errorMessage: error.message,
+                    },
+                });
+            });
+    };
+};
+
+export const deleteUser = (id) => {
+    return (dispatch) => {
+        // loading
+        dispatch({
+            type: DELETE_USER,
+            payload: {
+                loading: true,
+                data: false,
+                errorMessage: false,
+            },
+        });
+
+        // delete data
+        axios({
+            method: "DELETE",
+            url: "http://localhost:5000/users/" + id,
+            timeout: 5000,
+        })
+            .then((res) => {
+                // when success delete data
+                dispatch({
+                    type: DELETE_USER,
+                    payload: {
+                        loading: false,
+                        data: res.data,
+                        errorMessage: false,
+                    },
+                });
+            })
+            .catch((error) => {
+                // when success delete data
+                dispatch({
+                    type: DELETE_USER,
+                    payload: {
+                        loading: false,
+                        data: false,
+                        errorMessage: error.message,
                     },
                 });
             });
