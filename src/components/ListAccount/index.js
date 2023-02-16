@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteAccount, deleteUser, getAllAccount } from "../../actions/actionsAccount";
+import { deleteAccount, deleteUser, detailAccount, getAllAccount } from "../../actions/actionsAccount";
 
 const ListAccount = () => {
     const dispatch = useDispatch();
-    const { getAllAccountLoading, getAllAccountResult, getAllAccountError, addNewUserResult, deleteAccountResult, deleteUserResult } = useSelector((state) => state.AccountReducer);
+    const { getAllAccountLoading, getAllAccountResult, getAllAccountError, addNewUserResult, deleteAccountResult, deleteUserResult, updateUserResult } = useSelector((state) => state.AccountReducer);
 
     useEffect(() => {
         // get all data account when first time open landing page
@@ -19,11 +19,18 @@ const ListAccount = () => {
     }, [addNewUserResult]);
 
     useEffect(() => {
-        if (deleteUserResult) {
+        if (deleteAccountResult || deleteUserResult) {
             // refresh table list account after success delete user
             dispatch(getAllAccount());
         }
-    }, [deleteUserResult]);
+    }, [deleteAccountResult, deleteUserResult]);
+
+    useEffect(() => {
+        if (updateUserResult) {
+            // refresh table list account after success update user data
+            dispatch(getAllAccount());
+        }
+    }, [updateUserResult]);
 
     return (
         <>
@@ -65,7 +72,7 @@ const ListAccount = () => {
                                                     <td>
                                                         <div className="row">
                                                             <div className="col">
-                                                                <button className="btn btn-info btn-sm w-100" disabled={item.username === "admin" || item.username === "member"}>
+                                                                <button className="btn btn-info btn-sm w-100" disabled={item.username === "admin" || item.username === "member"} onClick={() => dispatch(detailAccount(item))}>
                                                                     Edit
                                                                 </button>
                                                             </div>

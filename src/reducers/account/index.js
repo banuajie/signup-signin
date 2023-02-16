@@ -1,4 +1,4 @@
-import { ADD_NEW_ACCOUNT, ADD_NEW_USER, DELETE_ACCOUNT, DELETE_USER, GET_ALL_ACCOUNT } from "../../actions/actionsAccount";
+import { ADD_NEW_ACCOUNT, ADD_NEW_USER, DELETE_ACCOUNT, DELETE_USER, DETAIL_ACCOUNT, GET_ALL_ACCOUNT, UPDATE_ACCOUNT, UPDATE_USER } from "../../actions/actionsAccount";
 
 const initialState = {
     getAllAccountLoading: false,
@@ -20,6 +20,16 @@ const initialState = {
     deleteUserLoading: false,
     deleteUserResult: false,
     deleteUserError: false,
+
+    detailAccountResult: false,
+
+    updateAccountLoading: false,
+    updateAccountResult: false,
+    updateAccountError: false,
+
+    updateUserLoading: false,
+    updateUserResult: false,
+    updateUserError: false,
 };
 
 const AccountReducer = (state = initialState, action) => {
@@ -61,6 +71,28 @@ const AccountReducer = (state = initialState, action) => {
                 deleteUserLoading: action.payload.loading,
                 deleteUserResult: action.payload.data,
                 deleteUserError: action.payload.errorMessage,
+            };
+
+        case DETAIL_ACCOUNT:
+            return {
+                ...state,
+                detailAccountResult: action.payload.data,
+            };
+
+        case UPDATE_ACCOUNT:
+            return {
+                ...state,
+                updateAccountLoading: action.payload.loading,
+                updateAccountResult: action.payload.data,
+                updateAccountError: action.payload.errorMessage,
+            };
+
+        case UPDATE_USER:
+            return {
+                ...state,
+                updateUserLoading: action.payload.loading,
+                updateUserResult: action.payload.data,
+                updateUserError: action.payload.errorMessage,
             };
 
         default:

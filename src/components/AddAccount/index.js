@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addNewAccount, addNewUser, getAllAccount } from "../../actions/actionsAccount";
+import { addNewAccount, addNewUser, getAllAccount, updateAccount, updateUser } from "../../actions/actionsAccount";
 
 const AddAccount = () => {
     const dispatch = useDispatch();
-    const { addNewAccountResult, addNewUserResult, getAllAccountResult, deleteAccountResult, deleteUserResult } = useSelector((state) => state.AccountReducer);
+    const { addNewAccountResult, addNewUserResult, getAllAccountResult, deleteAccountResult, deleteUserResult, detailAccountResult, updateAccountResult, updateUserResult } = useSelector((state) => state.AccountReducer);
 
     const [id, setId] = useState("");
     const [username, setUsername] = useState("");
@@ -28,19 +28,35 @@ const AddAccount = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        // check username data
-        for (let i = 0; i < getAllAccountResult.length; i++) {
-            if (getAllAccountResult[i].username === username) {
-                // set error username to true if username is already to used
-                return setErrorUsername(true);
+        if (id) {
+            // check username data
+            for (let i = 0; i < getAllAccountResult.length; i++) {
+                if (username === getAllAccountResult[i].username && username !== detailAccountResult.username) {
+                    // set error username to true if username is already to used
+                    return setErrorUsername(true);
+                } else {
+                    // update data account
+                    dispatch(updateAccount({ id: id, username: username, password: password, role: role }));
+                }
             }
+
+            // set error username to false
+            setErrorUsername(false);
+        } else {
+            // check username data
+            for (let i = 0; i < getAllAccountResult.length; i++) {
+                if (getAllAccountResult[i].username === username) {
+                    // set error username to true if username is already to used
+                    return setErrorUsername(true);
+                }
+            }
+
+            // set error username to false
+            setErrorUsername(false);
+
+            // set tryCreateAccount to true
+            setTryCreateAccount(true);
         }
-
-        // set error username to false
-        setErrorUsername(false);
-
-        // set tryCreateAccount to true
-        setTryCreateAccount(true);
     };
 
     useEffect(() => {
@@ -68,11 +84,48 @@ const AddAccount = () => {
     }, [addNewUserResult]);
 
     useEffect(() => {
-        if (deleteUserResult) {
+        if (deleteAccountResult || deleteUserResult) {
             // reset form after success delete user
             resetForm();
         }
-    }, [deleteUserResult]);
+    }, [deleteAccountResult, deleteUserResult]);
+
+    useEffect(() => {
+        // show detail account after click button "Edit"
+        if (detailAccountResult) {
+            setId(detailAccountResult.id);
+            setUsername(detailAccountResult.username);
+            setPassword(detailAccountResult.password);
+            setRole(detailAccountResult.role);
+        }
+    }, [detailAccountResult]);
+
+    const handleCancelUpdate = (event) => {
+        event.preventDefault();
+
+        // reset form after click button "Cancel Update"
+        resetForm();
+
+        // set errorUsername to false after click button "Cancel Update"
+        setErrorUsername(false);
+
+        // refresh table after click button "Cancel Update"
+        dispatch(getAllAccount());
+    };
+
+    useEffect(() => {
+        if (updateAccountResult) {
+            // update username after success update data account
+            dispatch(updateUser({ id: updateAccountResult.id, username: updateAccountResult.username }));
+        }
+    }, [updateAccountResult]);
+
+    useEffect(() => {
+        if (updateUserResult) {
+            // reset form after success update user data
+            resetForm();
+        }
+    }, [updateUserResult]);
 
     return (
         <>
@@ -81,7 +134,7 @@ const AddAccount = () => {
                 <div className="container">
                     <div className="row">
                         <div className="col">
-                            <p className="fs-4 my-auto">Add Account</p>
+                            <p className="fs-4 my-auto">{id ? "Edit Account" : "Add Account"}</p>
                         </div>
                     </div>
                 </div>
@@ -91,6 +144,16 @@ const AddAccount = () => {
                     <div className="row">
                         <div className="col">
                             <form onSubmit={(event) => handleSubmit(event)} className="w-50">
+                                {/* input id (disabled) */}
+                                {id && (
+                                    <div className="mb-3">
+                                        <label htmlFor="username" className="form-label">
+                                            Account ID
+                                        </label>
+                                        <input type="text" className="form-control" id="id" name="id" value={id} disabled />
+                                    </div>
+                                )}
+
                                 {/* input username */}
                                 <div className="mb-3">
                                     <label htmlFor="username" className="form-label">
@@ -156,8 +219,15 @@ const AddAccount = () => {
 
                                 {/* button "Add Account" / "Update Account" */}
                                 <button type="submit" className="btn btn-success btn-sm" disabled={username === "" || password === "" || role === ""}>
-                                    Add Account
+                                    {id ? "Update Account" : "Add Account"}
                                 </button>
+
+                                {/* button "Cancel Update" */}
+                                {id && (
+                                    <button className="btn btn-warning btn-sm ms-3" onClick={(event) => handleCancelUpdate(event)}>
+                                        Cancel Update
+                                    </button>
+                                )}
                             </form>
                         </div>
                     </div>

@@ -5,6 +5,9 @@ export const ADD_NEW_ACCOUNT = "ADD_NEW_ACCOUNT";
 export const ADD_NEW_USER = "ADD_NEW_USER";
 export const DELETE_ACCOUNT = "DELETE_ACCOUNT";
 export const DELETE_USER = "DELETE_USER";
+export const DETAIL_ACCOUNT = "DETAIL_ACCOUNT";
+export const UPDATE_ACCOUNT = "UPDATE_ACCOUNT";
+export const UPDATE_USER = "UPDATE_USER";
 
 export const getAllAccount = () => {
     return (dispatch) => {
@@ -213,6 +216,106 @@ export const deleteUser = (id) => {
                 // when success delete data
                 dispatch({
                     type: DELETE_USER,
+                    payload: {
+                        loading: false,
+                        data: false,
+                        errorMessage: error.message,
+                    },
+                });
+            });
+    };
+};
+
+export const detailAccount = (data) => {
+    return (dispatch) => {
+        // load detail data account
+        dispatch({
+            type: DETAIL_ACCOUNT,
+            payload: {
+                data: data,
+            },
+        });
+    };
+};
+
+export const updateAccount = (data) => {
+    return (dispatch) => {
+        // loading
+        dispatch({
+            type: UPDATE_ACCOUNT,
+            payload: {
+                loading: true,
+                data: false,
+                errorMessage: false,
+            },
+        });
+
+        // put data
+        axios({
+            method: "PUT",
+            url: "http://localhost:5000/accounts/" + data.id,
+            timeout: 5000,
+            data: data,
+        })
+            .then((res) => {
+                // when success put data
+                dispatch({
+                    type: UPDATE_ACCOUNT,
+                    payload: {
+                        loading: false,
+                        data: res.data,
+                        errorMessage: false,
+                    },
+                });
+            })
+            .catch((error) => {
+                // when failed put data
+                dispatch({
+                    type: UPDATE_ACCOUNT,
+                    payload: {
+                        loading: false,
+                        data: false,
+                        errorMessage: error.message,
+                    },
+                });
+            });
+    };
+};
+
+export const updateUser = (data) => {
+    return (dispatch) => {
+        // loading
+        dispatch({
+            type: UPDATE_USER,
+            payload: {
+                loading: true,
+                data: false,
+                errorMessage: false,
+            },
+        });
+
+        // put data
+        axios({
+            method: "PUT",
+            url: "http://localhost:5000/users/" + data.id,
+            timeout: 5000,
+            data: data,
+        })
+            .then((res) => {
+                // when success put data
+                dispatch({
+                    type: UPDATE_USER,
+                    payload: {
+                        loading: false,
+                        data: res.data,
+                        errorMessage: false,
+                    },
+                });
+            })
+            .catch((error) => {
+                // when success put data
+                dispatch({
+                    type: UPDATE_USER,
                     payload: {
                         loading: false,
                         data: false,
