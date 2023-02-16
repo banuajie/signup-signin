@@ -44,6 +44,9 @@ const FormSignIn = () => {
             setLoadingSignIn(false);
 
             if (signInResult[0].role === "Admin") {
+                // save user login data to local storage
+                window.localStorage.setItem("AccountLogin", JSON.stringify(signInResult[0]));
+
                 // navigate to landing admin
                 navigate("/landing-admin-page");
             } else {

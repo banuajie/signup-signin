@@ -13,6 +13,8 @@ const AddAccount = () => {
     const [errorUsername, setErrorUsername] = useState(false);
     const [tryCreateAccount, setTryCreateAccount] = useState(false);
 
+    const getAccountLogin = JSON.parse(window.localStorage.getItem("AccountLogin"));
+
     // generated id account
     const generatedId = () => {
         return Date.now();
@@ -142,8 +144,8 @@ const AddAccount = () => {
                 {/* form add/edit account */}
                 <div className="container">
                     <div className="row">
-                        <div className="col">
-                            <form onSubmit={(event) => handleSubmit(event)} className="w-50">
+                        <div className="col-6">
+                            <form onSubmit={(event) => handleSubmit(event)}>
                                 {/* input id (disabled) */}
                                 {id && (
                                     <div className="mb-3">
@@ -229,6 +231,11 @@ const AddAccount = () => {
                                     </button>
                                 )}
                             </form>
+                        </div>
+
+                        <div className="col-6 text-center align-self-center">
+                            <p className="fs-2 my-auto">Landing {getAccountLogin.role}</p>
+                            <p className="fs-4 my-auto">Welcome to {getAccountLogin.username} Page</p>
                         </div>
                     </div>
                 </div>
